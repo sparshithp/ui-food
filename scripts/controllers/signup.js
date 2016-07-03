@@ -1,4 +1,5 @@
-app.controller('SignupCtrl', function($scope, $auth) {
+app.controller('SignupCtrl', function($scope, $auth, $rootScope) {
+    $rootScope.title = "Signup";
     $scope.signup = function() {
       $auth.signup({
       	fullName: $scope.fullName,

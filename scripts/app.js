@@ -14,11 +14,6 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
         templateUrl: 'views/home.html',
         controller: 'HomeCtrl'
       })
-      .state('homeChef', {
-        url: '/',
-        templateUrl: 'views/homeChef.html',
-        controller: 'HomeCtrl'
-      })
       .state('login', {
         url: '/login',
         templateUrl: 'views/login.html',
@@ -34,10 +29,20 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
         template: null,
         controller: 'LogoutCtrl'
       })
-        .state('upcoming', {
-            url: '/upcoming',
-            templateUrl: 'views/upcoming.html',
-            controller: 'UpcomingCtrl'
+        .state('mealDetail', {
+            url: '/mealDetail',
+            templateUrl: 'views/mealDetail.html',
+            controller: 'mealDetailCtrl'
+        })
+        .state('cart', {
+            url: '/cart',
+            templateUrl: 'views/cart.html',
+            controller: 'cartCtrl'
+        })
+        .state('chef', {
+            url: '/chef',
+            templateUrl: 'views/chef.html',
+            controller: 'chefCtrl'
         })
       .state('profile', {
         url: '/profile',
