@@ -203,18 +203,18 @@ a {
 .slide {
   overflow-x: hidden;
   overflow-y: hidden;
-  background-image: url('../images/placeholder.png');
+  background-image: url('http://www.starsinnsuites.com/airport/wp-content/uploads/2015/03/facilities-coinlaundry-400x300.jpg');
   background-position: 42% 0px;
   background-size: cover;
   background-repeat: no-repeat;
 }
 .slide.bg2 {
-  background-image: url('../images/placeholder.png');
+  background-image: url('https://media.treehugger.com/assets/images/2015/06/laundry_line.jpg.400x300_q90_crop-smart.jpg');
   background-size: cover;
   background-position: 60% 0px;
 }
 .slide.bg3 {
-  background-image: url('../images/placeholder.png');
+  background-image: url('https://www.washtublaundrynm.com/img/6777/659.jpg');
   background-size: cover;
 }
 .list {
@@ -1224,6 +1224,7 @@ a {
   clear: both;
 }
 .input-chat-block {
+  z-index:9;
   position: fixed;
   left: 0px;
   right: 0px;

@@ -44,6 +44,16 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
             templateUrl: 'views/chef.html',
             controller: 'chefCtrl'
         })
+      .state('messages', {
+          url: '/messages',
+          templateUrl: 'views/messages.html',
+          controller: 'messagesCtrl'
+      })
+      .state('chat', {
+          url: '/chat',
+          templateUrl: 'views/chat.html',
+          controller: 'chatCtrl'
+      })
       .state('profile', {
         url: '/profile',
         templateUrl: 'views/profile.html',

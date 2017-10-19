@@ -1,0 +1,73 @@
+<div class="body">
+    <ul class="list list-chats">
+        <div ng-repeat="chat in chats">
+            <li class="w-clearfix list-chat" data-ix="list-item">
+                <div ng-if="chat.type == 'text'">
+                    <div class="column-left chat">
+                        <div class="image-message chat"><img src="images/placeholder.png">
+                        </div>
+                    </div>
+                    <div class="w-clearfix column-right chat">
+                        <div class="arrow-globe"></div>
+                        <div class="chat-text">{{chat.data}}!&nbsp;</div>
+                    </div>
+                </div>
+                <div ng-if="chat.type == 'input'">
+                    <div class="w-clearfix column-right chat right">
+                        <div class="arrow-globe right"></div>
+                        <div class="chat-text right">{{chat.data}}!
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="chat.type == 'laundryCard'">
+                    <div style="padding:20px; padding-bottom: 60px;background-color: ghostwhite">
+                        <div>
+                            <div class="separator-fields"></div>
+                            <h2 class="title-new">{{chat.data[chat.displayIndex].name}}</h2>
+
+                            <div class="separator-fields"></div>
+                            <p class="description-new">
+                                {{chat.data[chat.displayIndex].description}}<br>
+                                Wash n Fold: {{chat.data[chat.displayIndex].wash}} &#8377/kg<br>
+                                Wash n Iron: {{chat.data[chat.displayIndex].washAndIron}} &#8377/kg
+                            </p>
+
+                            <div class="separator-button"></div>
+                        </div>
+                        <div class="w-slider hero-slider" data-animation="over" data-duration="500" data-infinite="1" data-nav-spacing="5" data-delay="3300" data-autoplay="1">
+                            <div class="w-slider-mask">
+                                <div class="w-slide slide bg2" style="background-image: url('{{chat.data[chat.displayIndex].image}}');"></div>
+                            </div>
+                            <div class="w-slider-arrow-left arrow-icon" ng-click="chat.displayIndex = (chat.displayIndex == 0) ? chat.data.length - 1 : chat.displayIndex - 1">
+                                <div class="w-icon-slider-left"></div>
+                            </div>
+                            <div class="w-slider-arrow-right arrow-icon" ng-click="chat.displayIndex = (chat.displayIndex == chat.data.length-1) ? 0 : chat.displayIndex + 1">
+                                <div class="w-icon-slider-right"></div>
+                            </div>
+
+                            <input class="w-button add-cart-button" style="padding: 0px" type="submit" value="Schedule Pickup" data-wait="Please wait...">
+                        </div>
+                    </div>
+
+                    <div class="separator-bottom"></div>
+                </div>
+            </li>
+        </div>
+
+    </ul>
+</div>
+<div class="input-chat-block">
+    <div class="w-form">
+        <form class="w-clearfix" id="wf-form-Send" name="wf-form-Send" action="#">
+            <input class="w-input input-chat" id="chat-message" type="text" placeholder="Your message" name="email"
+                   data-name="Email" required="required">
+            <input class="w-button chat-button" type="submit" value="Send" data-wait="Please wait...">
+        </form>
+        <div class="w-form-done">
+            <p>Thank you! Your submission has been received!</p>
+        </div>
+        <div class="w-form-fail">
+            <p>Oops! Something went wrong while submitting the form</p>
+        </div>
+    </div>
+</div>

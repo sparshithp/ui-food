@@ -1,6 +1,7 @@
 app.controller('LoginCtrl', function($scope, $alert, $auth, $rootScope) {
     $rootScope.title = "Login";
     console.log($scope.title);
+
     $scope.login = function() {
       $auth.login({ email: $scope.email, password: $scope.password })
         .then(function(res) {
@@ -23,6 +24,7 @@ app.controller('LoginCtrl', function($scope, $alert, $auth, $rootScope) {
           });
         });
     };
+
     $scope.authenticate = function(provider) {
       $auth.authenticate(provider)
         .then(function(){
