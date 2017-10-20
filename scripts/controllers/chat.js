@@ -1,16 +1,29 @@
 /**
  * Created by sparshithp on 10/18/17.
  */
-app.controller('chatCtrl', function ($scope, $auth, $alert, $http, $rootScope) {
+app.controller('chatCtrl', function ($scope, $auth, $alert, $http, $rootScope, $timeout, $location, $anchorScroll) {
     $rootScope.title = "Chef Detail";
 
     $scope.left = function (index) {
         index--;
-    }
+    };
 
     $scope.right = function (index) {
         index++;
-    }
+    };
+
+    $scope.schedule = function(laundryProvider) {
+        $scope.chats.push({
+            type:"input",
+            data:"Schedule Pickup with " + laundryProvider.name
+        });
+        $timeout(function() {
+            $location.hash('bottom');
+            $anchorScroll();
+        })
+        //Make HTTP call to send vendorId as text
+        console.log(laundryProvider.id);
+    };
 
     $scope.chats = [
 
