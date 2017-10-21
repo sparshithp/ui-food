@@ -21,7 +21,15 @@
                 </div>
 
                 <div ng-if="chat.type == 'laundryCard'">
-                    <div style="padding:20px; padding-bottom: 60px;background-color: ghostwhite">
+                    <div class="column-left chat">
+                        <div class="image-message chat"><img src="images/placeholder.png">
+                        </div>
+                    </div>
+                    <div class="w-clearfix column-right chat" style="padding-bottom: 10px">
+                        <div class="arrow-globe"></div>
+                        <div class="chat-text">{{chat.text}}&nbsp;</div>
+                    </div>
+                    <div style="padding:10px; padding-bottom: 60px;background-color: ghostwhite">
                         <div>
                             <div class="separator-fields"></div>
                             <h2 class="title-new">{{chat.data[chat.displayIndex].name}}</h2>
@@ -52,27 +60,36 @@
 
                     <div class="separator-bottom"></div>
                 </div>
+                <div ng-if="chat.type == 'area'">
+                    <div class="column-left chat">
+                        <div class="image-message chat"><img src="images/placeholder.png">
+                        </div>
+                    </div>
+                    <div class="w-clearfix column-right chat">
+                        <div class="arrow-globe"></div>
+                        <div class="chat-text">Select the area in which you want the laundry service below.&nbsp;</div>
+                    </div>
+                    <div class="separator-fields"></div>
+                    <div  style="padding-left: 25px; padding-right: 20px">
+                        <select ng-model="selectedArea" style="text-align: center;" class="w-select input-form select" ng-change="sendArea(selectedArea)">
+                            <option value="">Select laundry area</option>
+                            <option value="BTM Layout">BTM Layout</option>
+                            <option value="Whitefield">Whitefield</option>
+                        </select>
+                    </div>
+
+                    <div class="separator-bottom"></div>
+                </div>
             </li>
         </div>
-        <li class="w-clearfix list-chat" data-ix="list-item">
-            <div>
-                <div class="separator-fields"></div>
-                <select class="w-select input-form select" id="node-10">
-                    <option value="">Select delivery area</option>
-                    <option value="Bangalore">Bengaluru</option>
-                    <option value="Chennai">Chennai</option>
-                </select>
-            </div>
-        </li>
     </ul>
 </div>
 <div id="bottom"></div>
 <div id="input" class="input-chat-block">
     <div class="w-form">
-        <form class="w-clearfix" id="wf-form-Send" name="wf-form-Send" action="#">
-            <input class="w-input input-chat" id="chat-message" type="text" placeholder="Your message" name="email"
-                   data-name="Email" required="required">
-            <input class="w-button chat-button" type="submit" value="Send" data-wait="Please wait...">
+        <form class="w-clearfix" id="wf-form-Send" name="wf-form-Send">
+            <input class="w-input input-chat" id="chat-message" type="text" placeholder="Your message" ng-model="msg">
+            <input class="w-button chat-button" type="submit" value="Send" ng-click="postMessage()" data-wait="Please wait...">
         </form>
         <div class="w-form-done">
             <p>Thank you! Your submission has been received!</p>

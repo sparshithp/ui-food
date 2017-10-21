@@ -1,7 +1,9 @@
 /**
  * Created by sparshithp on 10/18/17.
  */
-app.controller('chatCtrl', function ($scope, $auth, $alert, $http, $rootScope, $timeout, $location, $anchorScroll) {
+app.controller('chatCtrl', function ($scope, $auth, $alert, $http, $rootScope, $timeout, $location, $anchorScroll, $http) {
+    var url ="http://42309648.ngrok.io/web/laundry";
+
     $rootScope.title = "Chef Detail";
 
     $scope.left = function (index) {
@@ -12,6 +14,34 @@ app.controller('chatCtrl', function ($scope, $auth, $alert, $http, $rootScope, $
         index++;
     };
 
+    $scope.sendArea = function(selectedArea) {
+        console.log("yo" + selectedArea);
+        $scope.chats.pop();
+        $scope.chats.push({
+            type:"input",
+            data:selectedArea
+        });
+        var dataObj = {
+            text : selectedArea
+        };
+        var res = $http.post(url, dataObj);
+        res.success(function(data, status, headers, config) {
+            $scope.chats.push(
+                data
+            );
+            scrollDown();
+        });
+        res.error(function(data, status, headers, config) {
+            $scope.chats.push(
+                {
+                    type: "text",
+                    data: "Something went wrong. Please try again"
+                }
+            );
+            scrollDown();
+        });
+    }
+
     $scope.schedule = function(laundryProvider) {
         $scope.chats.push({
             type:"input",
@@ -20,62 +50,76 @@ app.controller('chatCtrl', function ($scope, $auth, $alert, $http, $rootScope, $
         $timeout(function() {
             $location.hash('bottom');
             $anchorScroll();
-        })
+        });
         //Make HTTP call to send vendorId as text
-        console.log(laundryProvider.id);
+        var dataObj = {
+            text : laundryProvider.id
+        };
+        var res = $http.post(url, dataObj);
+        res.success(function(data, status, headers, config) {
+            $scope.chats.push(
+                data
+            );
+            $timeout(function() {
+                $location.hash('bottom');
+                $anchorScroll();
+            });
+        });
+        res.error(function(data, status, headers, config) {
+            $scope.chats.push(
+                {
+                    type: "text",
+                    data: "Something went wrong. Please try again"
+                }
+            );
+            scrollDown();
+        });
     };
 
-    $scope.chats = [
+    $scope.postMessage = function() {
+        var msg =  $scope.msg.trim();
+        $scope.msg = "";
+        console.log("sd " + msg );
 
-        {
+        $scope.chats.push({
             type: "input",
-            data: "Laundry near me",
-            req: true
-        },
-        {
-            type: "text",
-            data: "Here are the laundry near you",
-            req: true
-        },
-        {
-            type: "laundryCard",
-            displayIndex: 0,
-            data: [{
-                name: "Insta Laundry",
-                image: "https://media.treehugger.com/assets/images/2015/06/laundry_line.jpg.400x300_q90_crop-smart.jpg",
-                wash: 50,
-                washAndIron: 90,
-                description: "Amazing laundry services with 24 hrs turnover"
-            },
+            data: msg
+        });
+        var dataObj = {
+            text : msg
+        };
+        var res = $http.post(url, dataObj);
+        res.success(function(data, status, headers, config) {
+            if (data.type == "area") {
+                $scope.chats.push(
+                    data
+                );
+                scrollDown();
+                return;
+            }
+            $scope.chats.push(
+                data
+            );
+            scrollDown();
+        });
+        res.error(function(data, status, headers, config) {
+            $scope.chats.push(
                 {
-                    name: "Namme Laundry",
-                    image: "http://www.starsinnsuites.com/airport/wp-content/uploads/2015/03/facilities-coinlaundry-400x300.jpg",
-                    wash: 60,
-                    washAndIron: 80,
-                    description: "Good laundry services with 24 hrs turnover"
+                    type: "text",
+                    data: "Something went wrong. Please try again"
                 }
-            ],
-            req: false
-        },
-        {
-            type: "input",
-            data: "Schedule Pickup",
-            req: true
-        },
-        {
-            type: "text",
-            data: "What time do you want us to pick up the clothes",
-            req: true
-        },
-        {
-            type: "input",
-            data: "Around 3 PM",
-            req: true
-        },
-        {
-            type: "text",
-            data: "Your booking with Insta Laundry is confirmed",
-            req: true
-        }
-    ]
+            );
+            scrollDown();
+        });
+    }
+
+    $scope.chats = [];
+
+
+    function scrollDown() {
+        $timeout(function() {
+            $location.hash('bottom');
+            $anchorScroll();
+        });
+    }
 });
